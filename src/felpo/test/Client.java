@@ -12,7 +12,12 @@ import java.util.*;
 public class Client {
     
     public static void main(String[] args){
-        sendObjectDatagram();
+        
+        try {
+           
+        } catch (Exception e) {e.printStackTrace(); }
+        
+        
     }
     
     

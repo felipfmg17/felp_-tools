@@ -10,7 +10,12 @@ import java.util.*;
 
 public class Server {
     public static void main(String[] args){
-        receiveObjectDatagram();
+
+        try {
+           
+        } catch (Exception e) {e.printStackTrace();}
+        
+        
     }
     
     public static void receiveFileTest(){

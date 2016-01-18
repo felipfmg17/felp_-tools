@@ -45,30 +45,50 @@ public class Teleport {
 
 
     
-
-    public static Teleport getTeleport(String ip, int port){
+    /*Use on client*/
+    public static Teleport getTeleport(Socket soc){
         try {
             Teleport tele=new Teleport();
-            tele.soc=new Socket(ip,port);
+            tele.soc=soc;
             tele.out=new ObjectOutputStream(tele.soc.getOutputStream());
             tele.in=new ObjectInputStream(tele.soc.getInputStream());
             return tele;
         } catch (Exception e) {e.printStackTrace();}
         return null;
     }
+
+    /*Use on Client*/
+    public static Teleport getTeleport(String ip, int port){
+        try {      
+            return getTeleport(new Socket(ip,port));    
+        } catch (Exception e) {e.printStackTrace();}
+        return null;
+    }
     
+    /*Use on Server*/
     public static Teleport getTeleport(int port){
         try {
             ServerSocket server=new ServerSocket(port);
-            Teleport tele=new Teleport();          
-            tele.soc=server.accept();
-            tele.in=new ObjectInputStream(tele.soc.getInputStream());
-            tele.out=new ObjectOutputStream(tele.soc.getOutputStream());
+            Teleport tele=getTeleport(server);
             server.close();
             return tele;
         } catch (Exception e) {e.printStackTrace();}
         return null;
     }
+    
+    /*Use on Server*/
+    public static Teleport getTeleport(ServerSocket server){
+        try {
+            Teleport tele=new Teleport();
+            tele.soc=server.accept();
+            tele.in=new ObjectInputStream(tele.soc.getInputStream());
+            tele.out=new ObjectOutputStream(tele.soc.getOutputStream());
+            return tele;
+        } catch (Exception e) {e.printStackTrace();}
+        return null;
+    }
+    
+    
     
     public static void sendObject(String ip, int port, Serializable o)  {
         try {
@@ -96,9 +116,5 @@ public class Teleport {
         return null;
     }
     
-    public static void sendObjectUDP(String ip,int port, Serializable o){
-        
-    }
    
-  
 }
