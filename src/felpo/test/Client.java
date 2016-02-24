@@ -2,9 +2,7 @@
 package felpo.test;
 
 
-import felpo.tools.DatagramTeleport;
-import felpo.tools.Gui;
-import felpo.tools.Teleport;
+import felpo.tools.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -14,25 +12,13 @@ public class Client {
     public static void main(String[] args){
         
         try {
-           
+           Socket soc = new Socket(InetAddress.getLoopbackAddress(), 4000);
+           File[] files = STool.selectFiles(new File("C:\\Users\\Usuario\\Desktop"));
+           Tool.write(files, soc.getOutputStream());
+           soc.close();
         } catch (Exception e) {e.printStackTrace(); }
         
         
     }
     
-    
-    public static void sendFileTest(){
-        File[] files=Gui.selectFiles(null);
-        Teleport tele=Teleport.getTeleport("localhost",4010);
-        tele.sendFiles(files);
-        tele.close();
-
-//            File f=STool.selectFile(null);
-//            Teleport tele=Teleport.getTeleport("localhost", 5000);
-//            tele.sendFile(f);
-    }
-    
-    public static void sendObjectDatagram(){
-        DatagramTeleport.sendObject("localhost", 3000, "hola soy felipe en udp");
-    }
 }

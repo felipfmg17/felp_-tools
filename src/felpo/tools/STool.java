@@ -7,7 +7,7 @@ import java.util.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
-public class Gui {
+public class STool {
     
     
     public static File selectDirectory(File path) {
